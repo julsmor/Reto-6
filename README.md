@@ -181,7 +181,24 @@ class Square(Rectangle):
         super().__init__(bottom_left, side, side)
         self._is_regular = True
 
-    #compute_area and compute_perimeter inherited from Rectangle are correct
+    #compute_area and compute_perimeter inherited from Rectangle are correct                
+
+#example usage
+if __name__ == "__main__":  
+    p1 = Point(0, 0)
+    p2 = Point(4, 0)
+    p3 = Point(4, 3)
+    p4 = Point(0, 3)
+
+    rectangle = Rectangle(p1, 4, 3)
+    print(rectangle)
+    print(f"Area: {rectangle.compute_area()}")
+    print(f"Perimeter: {rectangle.compute_perimeter()}")
+
+    square = Square(p1, 5)
+    print(square)
+    print(f"Area: {square.compute_area()}")
+    print(f"Perimeter: {square.compute_perimeter()}") 
 ```
 **Description of exercise 1 of challenge 1**
 
