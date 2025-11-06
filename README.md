@@ -184,6 +184,7 @@ class Square(Rectangle):
     #compute_area and compute_perimeter inherited from Rectangle are correct
 ```
 **Description of exercise 1 of challenge 1**
+
 This program prompts the user for two numbers and performs the basic operations of addition, subtraction, multiplication, and division, displaying the results on screen. ValueError exceptions were added to handle non-numeric inputs, and ZeroDivisionError to prevent errors when dividing by zero.
 ```python
 def introducir_numeros() -> tuple:
@@ -266,6 +267,7 @@ if __name__ == "__main__":
             print("Error en prueba:", p, "-", e)
 ```
 **Description of exercise 3 of challenge 1**
+
 The goal of this program was to create a function that receives a list of integers and returns only the prime numbers. Controls were implemented using TypeError and ValueError exceptions to ensure that all elements in the list are valid integers.
 ```python
 # reto1_03.py
@@ -297,4 +299,64 @@ if __name__ == "__main__":
     except TypeError as e:
         print("Error:", e)
 ```
+**Description of exercise 4 of challenge 1**
+This program calculates the largest possible sumamong consecutive elements of a list of integers. Validations were added to ensure that the list contains at least two elements, and exceptions to handle empty lists or non-numeric data. This guarantees that the algorithm only processes valid inputs, making the code more reliable and error-resistant.
+```python
+# reto1_04.py
+from typing import Sequence
 
+def mayor_suma_consecutivos(seq: Sequence) -> float:
+    if not hasattr(seq, "__len__"):
+        raise TypeError("Se esperaba una secuencia (lista, tupla).")
+    if len(seq) < 2:
+        raise ValueError("La secuencia debe tener al menos dos elementos.")
+    # Validar tipo de elementos
+    if any(not isinstance(x, (int, float)) for x in seq):
+        raise TypeError("Todos los elementos deben ser numéricos (int o float).")
+
+    mayor_suma = seq[0] + seq[1]
+    for i in range(1, len(seq) - 1):
+        suma = seq[i] + seq[i + 1]
+        if suma > mayor_suma:
+            mayor_suma = suma
+    return mayor_suma
+
+if __name__ == "__main__":
+    try:
+        print(mayor_suma_consecutivos([1, 5, 3, 9, 2]))
+        print(mayor_suma_consecutivos([10, 20, 5, 6]))
+        # esto debe lanzar ValueError
+        print(mayor_suma_consecutivos([7]))
+    except (TypeError, ValueError) as e:
+        print("Error:", e)
+```
+**Description of exercise 5 of challenge 1**
+
+The program groups and displays words made up of the same characters (anagrams) within a list. A dictionary was used to organize the words according to their sorted letters. Exceptions were included to handle invalid entries or empty lists.
+```python
+# reto1_05.py
+from typing import List
+
+def mismos_caracteres(lista: List[str]) -> List[str]:
+    if not hasattr(lista, "__iter__"):
+        raise TypeError("Se esperaba una lista de cadenas.")
+    vistos = {}
+    for palabra in lista:
+        if not isinstance(palabra, str):
+            raise TypeError("Todos los elementos de la lista deben ser cadenas (str).")
+        clave = "".join(sorted(palabra))
+        vistos.setdefault(clave, []).append(palabra)
+
+    resultado = []
+    for grupo in vistos.values():
+        if len(grupo) > 1:
+            resultado.extend(grupo)
+    return resultado
+
+if __name__ == "__main__":
+    entrada = ["amor", "roma", "perro", "omar", "cosa", "saco", "sol", "los", "hola"]
+    try:
+        print(mismos_caracteres(entrada))
+    except TypeError as e:
+        print("Error:", e)
+```
